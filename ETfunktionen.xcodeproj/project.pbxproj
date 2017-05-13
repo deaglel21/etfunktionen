@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E31C54B1EC6F4EE00640087 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8E31C54A1EC6F4EE00640087 /* main.c */; };
+		8E31C5531EC6F51000640087 /* fET.c in Sources */ = {isa = PBXBuildFile; fileRef = 8E31C5511EC6F51000640087 /* fET.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,9 @@
 
 /* Begin PBXFileReference section */
 		8E31C5471EC6F4EE00640087 /* ETfunktionen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ETfunktionen; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E31C54A1EC6F4EE00640087 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		8E31C54A1EC6F4EE00640087 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; usesTabs = 0; };
+		8E31C5511EC6F51000640087 /* fET.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fET.c; sourceTree = "<group>"; };
+		8E31C5521EC6F51000640087 /* fET.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fET.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +60,9 @@
 		8E31C5491EC6F4EE00640087 /* ETfunktionen */ = {
 			isa = PBXGroup;
 			children = (
+				8E31C5521EC6F51000640087 /* fET.h */,
 				8E31C54A1EC6F4EE00640087 /* main.c */,
+				8E31C5511EC6F51000640087 /* fET.c */,
 			);
 			path = ETfunktionen;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E31C54B1EC6F4EE00640087 /* main.c in Sources */,
+				8E31C5531EC6F51000640087 /* fET.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

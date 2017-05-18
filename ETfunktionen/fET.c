@@ -8,6 +8,7 @@
 #include<math.h>
 #include <stdarg.h>
 
+//Reihenwiderstand (Anzahl, R1,R2...,Rn)
 double fRinReihe(int Anzahl,double dR[])
 {
     double Rges  = 0.0;
@@ -17,6 +18,8 @@ double fRinReihe(int Anzahl,double dR[])
     }
     return Rges;
 }
+
+//Parallelwiderstand (Anzahl, R1,R2...,Rn)
 double fRinParallel(int Anzahl, double dR[])
 {
     double dRges=0.0,dLeit = 0.0;
@@ -28,6 +31,7 @@ double fRinParallel(int Anzahl, double dR[])
     return dRges;
 }
 
+//Kondensator aufladen (Zeit, Spannung, Widerstand, Kapazität)
 double fKondensatorladen(double dT, double dU0,double dRC, double dC)
 {
     double dUC;
@@ -36,13 +40,24 @@ double fKondensatorladen(double dT, double dU0,double dRC, double dC)
     return dUC;
 }
 
+//Physikalisch (Speyifischer Widerstand, Leiterlänge, Leiterquerschnitt)
 double fWiderstand(double dp,double dl,double dA)
 {
     double dR = (dp*dl/dA);
     return dR;
 }
+
+//Temperatur (Widerstand bei 20°C, Alpha20, Temperatur differenz)
 double fRTemp(double dR20, double da, double dv)
 {
     double dRv= dR20*(1+da*dv);
     return dRv;
+}
+
+//Innenwiderstand (Lastwiderstand, Spannung Unbelastet, Spannung belastet)
+double fRinnen(double dRa, double dVl, double dVa)
+{
+    double dRi;
+    dRi=(dVl-dVa)/(dVa/dRa);
+    return dRi;
 }

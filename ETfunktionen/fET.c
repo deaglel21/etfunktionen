@@ -8,6 +8,8 @@
 #include<math.h>
 #include <stdarg.h>
 
+#define PI 3.14159265
+
 //Reihenwiderstand (Anzahl, R1,R2...,Rn)
 double fRinReihe(int Anzahl,double dR[])
 {
@@ -48,9 +50,9 @@ double fWiderstand(double dp,double dl,double dA)
 }
 
 //Temperatur (Widerstand bei 20°C, Alpha20, Temperatur differenz)
-double fRTemp(double dR20, double da, double dv)
+double fRTemp(double dR20, double dA, double dV)
 {
-    double dRv= dR20*(1+da*dv);
+    double dRv= dR20*(1+dA*dV);
     return dRv;
 }
 
@@ -60,4 +62,15 @@ double fRinnen(double dRa, double dVl, double dVa)
     double dRi;
     dRi=(dVl-dVa)/(dVa/dRa);
     return dRi;
+}
+
+//Leistung (Spannung, Strom, Phasenverschiebung)
+double * fleistung(double dU, double dA, double dGrad)
+{
+    static double dleistung[3];
+    dleistung[0]= dU*dA;
+    dleistung[1]=dU*dA*cos(dGrad*(PI/180));
+    dleistung[2]=dU*dA*sin(dGrad*(PI/180));
+    return dleistung;
+    
 }

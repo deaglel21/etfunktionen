@@ -13,8 +13,9 @@ double fRinReihe(int Anzahl,double dR[]);
 double fRinParallel(int Anzahl, double dR[]);
 double fKondensatorladen(double dT, double dU0,double dRC, double dC);
 double fWiderstand(double dp,double dl,double dA);
-double fRTemp(double dR20, double da, double dv);
+double fRTemp(double dR20, double dA, double dV);
 double fRinnen(double dRa, double dVl, double dVa);
+double * fleistung(double dU, double dA, double dGrad);
 
 
 

@@ -7,6 +7,7 @@
 //
 #include <stdio.h>
 #include"fET.h"
+#include<math.h>
 
 
 int main()
@@ -14,7 +15,7 @@ int main()
     double dAusgabe;
     int iAuswahl,iAnzahl;
     puts("Elektrotechnik Berechnungsprogramm");
-    puts("Berechnung von:\n1. Physikalischen Widerstand berechnen\n2. Widerstand bei Temperatur berechnen\n3. Widerstand in Reihe\n4. Parallelwiderstand\n5. Innenwiderstand\n6. Spannung am Kondensator");
+    puts("Berechnung von:\n1. Physikalischen Widerstand berechnen\n2. Widerstand bei Temperatur berechnen\n3. Widerstand in Reihe\n4. Parallelwiderstand\n5. Innenwiderstand\n6. Spannung am Kondensator\n7. Leistung(Blind,Wirk)");
     printf("Berechnung Nr: "); scanf("%i",&iAuswahl); getchar();
     switch (iAuswahl) {
         case 1:{
@@ -70,6 +71,18 @@ int main()
             printf("Kapazitaet in nF: ");scanf("%lf",&dC); getchar();
             dAusgabe=fKondensatorladen(dT*1e-3, dU0, dRc, dC*1e-9);
             printf("Die Spannung am Kondensator ist: %8.2lf V",dAusgabe);
+            break;
+        }
+        case 7:{
+            double dU,dA,dGrad;
+            double *dleistung = NULL;
+            printf("Spannung in V: ");scanf("%lf",&dU); getchar();
+            printf("Strom in A: ");scanf("%lf",&dA); getchar();
+            printf("Phasenverschiebung in °: ");scanf("%lf",&dGrad); getchar();
+            dleistung=fleistung(dU, dA, dGrad);
+            printf("Die Scheineistung ist: %8.2lf W",*dleistung);
+            printf("\nDie Wirkleistung ist: %8.2lf W",*(dleistung+1));
+            printf("\nDie Blindleistung ist: %8.2lf W",*(dleistung+2));
             break;
         }
     }

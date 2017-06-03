@@ -13,11 +13,14 @@
 //Reihenwiderstand (Anzahl, R1,R2...,Rn)
 double fRinReihe(int Anzahl,double dR[])
 {
-    double Rges  = 0.0;
-    for (int i = 0; i < Anzahl ; ++i) {
+    double Rges  = 0;
+    
+    for (int i = 0; i < Anzahl ; ++i)
+    {
         double curr=dR[i];
         Rges += curr;
     }
+    
     return Rges;
 }
 
@@ -25,21 +28,29 @@ double fRinReihe(int Anzahl,double dR[])
 double fRinParallel(int Anzahl, double dR[])
 {
     double dRges=0.0,dLeit = 0.0;
-    for (int i=0; i< Anzahl; i++){
+    
+    for (int i=0; i< Anzahl; i++)
+    {
         double curr=1/dR[i];
         dLeit += curr;
     }
-    dRges=1/dLeit;
+    
+    dRges = 1/dLeit;
     return dRges;
 }
 
-//Kondensator aufladen (Zeit, Spannung, Widerstand, Kapazität)
-double fKondensatorladen(double dT, double dU0,double dRC, double dC)
+//Kondensator laden (Zeit, Spannung, Widerstand, Kapazität)
+void fKondensatorladen(double dT, double dU0,double dRC, double dC,double *dUC, double *dIL)
 {
-    double dUC;
-    
-    dUC=dU0*(1-exp(-dT/(dRC*dC)));
-    return dUC;
+    *dUC = dU0*(1-exp(-dT/(dRC*dC)));
+    *dIL = (dU0/dRC)*(1-exp(-dT/(dRC*dC)));
+}
+
+//Kondensator entladen (Zeit, Spannung, Widerstand, Kapazität)
+void fKondensatorentladen(double dT, double dU0,double dRC, double dC,double *dUC, double *dIL)
+{
+    *dUC = dU0*exp(-dT/(dRC*dC));
+    *dIL = -(dU0/dRC)*(1-exp(-dT/(dRC*dC)));
 }
 
 //Physikalisch (Speyifischer Widerstand, Leiterlänge, Leiterquerschnitt)
@@ -52,7 +63,7 @@ double fWiderstand(double dp,double dl,double dA)
 //Temperatur (Widerstand bei 20°C, Alpha20, Temperatur differenz)
 double fRTemp(double dR20, double dA, double dV)
 {
-    double dRv= dR20*(1+dA*dV);
+    double dRv = dR20*(1+dA*dV);
     return dRv;
 }
 
@@ -60,17 +71,14 @@ double fRTemp(double dR20, double dA, double dV)
 double fRinnen(double dRa, double dVl, double dVa)
 {
     double dRi;
-    dRi=(dVl-dVa)/(dVa/dRa);
+    dRi = (dVl-dVa)/(dVa/dRa);
     return dRi;
 }
 
 //Leistung (Spannung, Strom, Phasenverschiebung)
-double * fleistung(double dU, double dA, double dGrad)
+void fLeistung(double dU, double dA, double dGrad, double *aSLeistung, double *aWLeistung, double *aBLeistung)
 {
-    static double dleistung[3];
-    dleistung[0]= dU*dA;
-    dleistung[1]=dU*dA*cos(dGrad*(PI/180));
-    dleistung[2]=dU*dA*sin(dGrad*(PI/180));
-    return dleistung;
-    
+    *aSLeistung = dU*dA;
+    *aWLeistung = dU*dA*cos(dGrad*(PI/180));
+    *aBLeistung = dU*dA*sin(dGrad*(PI/180));
 }

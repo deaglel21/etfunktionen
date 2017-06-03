@@ -11,11 +11,12 @@
 
 double fRinReihe(int Anzahl,double dR[]);
 double fRinParallel(int Anzahl, double dR[]);
-double fKondensatorladen(double dT, double dU0,double dRC, double dC);
+void   fKondensatorladen(double dT, double dU0,double dRC, double dC,double *dUC, double *dIL);
+void   fKondensatorentladen(double dT, double dU0,double dRC, double dC,double *dUC, double *dIL);
 double fWiderstand(double dp,double dl,double dA);
 double fRTemp(double dR20, double dA, double dV);
 double fRinnen(double dRa, double dVl, double dVa);
-double * fleistung(double dU, double dA, double dGrad);
+void   fLeistung(double dU, double dA, double dGrad, double *aSLeistung, double *aWLeistung, double *aBLeistung);
 
 
 

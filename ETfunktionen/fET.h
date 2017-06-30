@@ -17,7 +17,8 @@ double fWiderstand(double dp,double dl,double dA);
 double fRTemp(double dR20, double dA, double dV);
 double fRinnen(double dRa, double dVl, double dVa);
 void   fLeistung(double dU, double dA, double dGrad, double *aSLeistung, double *aWLeistung, double *aBLeistung);
-
+void fRLC(double dU,  double df,  double dR, double dL,  double dC,
+          double *dA,double *dPhi,double *dZ,double *dwL,double *dwC, double *aSLeistung, double *aWLeistung, double *aBLeistung);
 
 
 #endif /* fET_h */

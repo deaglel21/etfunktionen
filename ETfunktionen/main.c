@@ -6,6 +6,7 @@
 //  Copyright © 2017 Arthur Lerke. All rights reserved.
 //
 #include <stdio.h>
+#include<stdlib.h>
 #include"fET.h"
 
 
@@ -23,7 +24,8 @@ int main()
          "5. Innenwiderstand\n"
          "6. Kondensator beim Laden\n"
          "7. Kondensator beim Entladen\n"
-         "8. Leistung(Schein,Blind,Wirk)");
+         "8. Leistung(Schein,Blind,Wirk\n"
+         "9. RLC Reihe");
     
     while(ineu){
         printf("\nBerechnung Nr: "); scanf("%i",&iAuswahl);
@@ -54,31 +56,35 @@ int main()
                 break;
             }
             case 3:{            //Widerstand in Reihe
-                double dRr[1];
+                double *dRr;
 
                 printf("Anzahl der Widerstaende: ");    scanf("%i",&iAnzahl);   getchar();
-
+                dRr=(double*)malloc(iAnzahl*sizeof(int));
+                
                 for(int i=0; i<iAnzahl;i++)
                 {
                     printf("R%i in Ohm: ",i+1); scanf("%lf",&dRr[i]); getchar();
                 }
                 dAusgabe=fRinReihe(iAnzahl,dRr);
-            
+                free(dRr);
+                
                 printf("\nDer Gesamtwiderstand ist: %8.2lf Ohm",dAusgabe);
                 break;
             }
             case 4:{            //Widerstand bei Parallelschaltung
-                double dRp[1];
+                double *dRp;
 
                 printf("Anzahl der Widerstaende: ");    scanf("%i",&iAnzahl);   getchar();
-            
+                dRp=(double*)malloc(iAnzahl*sizeof(int));
+                
                 for(int i=0; i<iAnzahl;i++)
                 {
                     printf("R%i in Ohm: ",i+1);  scanf("%lf",&dRp[i]);   getchar();
                 }
             
                 dAusgabe=fRinParallel(iAnzahl,dRp);
-            
+                free(dRp);
+                
                 printf("\nDer Gesamtwiderstand ist: %8.2lf Ohm",dAusgabe);
                 break;
             }
@@ -123,14 +129,34 @@ int main()
                 break;
             }
             case 8:{            //Scheinleistung
-                double dU,dA,dGrad,dSLeistung,dWLeistung,dBLeistung;
-            
+                double dU,dA,dPhi,dSLeistung,dWLeistung,dBLeistung;
+                
                 printf("Spannung in V:           ");    scanf("%lf",&dU);       getchar();
                 printf("Strom in A:              ");    scanf("%lf",&dA);       getchar();
-                printf("Phasenverschiebung in °: ");    scanf("%lf",&dGrad);    getchar();
-            
-                fLeistung(dU, dA, dGrad,&dSLeistung,&dWLeistung,&dBLeistung);
-            
+                printf("Phasenverschiebung in °: ");    scanf("%lf",&dPhi);     getchar();
+                
+                fLeistung(dU, dA, dPhi,&dSLeistung,&dWLeistung,&dBLeistung);
+                
+                printf("\nDie Scheineistung ist: %8.2lf W",dSLeistung);
+                printf("\nDie Wirkleistung ist:  %8.2lf W",dWLeistung);
+                printf("\nDie Blindleistung ist: %8.2lf W",dBLeistung);
+                break;
+            }
+            case 9:{            //Komplexerwiderstand
+                double dU,df,dA,dPhi,dR,dL,dC,dZ,dwL,dwC,dSLeistung,dWLeistung,dBLeistung;
+                
+                printf("Spannung in V:           ");    scanf("%lf",&dU);       getchar();
+                printf("Frequenz in Hz:          ");    scanf("%lf",&df);       getchar();
+                printf("Widerstand in Ohm:       ");    scanf("%lf",&dR);       getchar();
+                printf("Induktivitaet in mH:     ");    scanf("%lf",&dL);       getchar();
+                printf("Kapazitaet in uF:        ");    scanf("%lf",&dC);       getchar();
+                
+                fRLC(dU,df,dR,dL*1e-3,dC*1e-6,&dA,&dPhi,&dZ,&dwL,&dwC,&dSLeistung,&dWLeistung,&dBLeistung);
+                
+                printf("\nKomplexer Widerstand: %8.2lf Ohm %.0lf Grad",dZ,dPhi);
+                printf("\nWiderstand Spule: %8.2lf Ohm 90 Grad",dwL);
+                printf("\nWiderstand Kondensator: %8.2lf Ohm -90 Grad",-dwC);
+                printf("\nStrom:  %8.2lf A %.0lf Grad",dA,-dPhi);
                 printf("\nDie Scheineistung ist: %8.2lf W",dSLeistung);
                 printf("\nDie Wirkleistung ist:  %8.2lf W",dWLeistung);
                 printf("\nDie Blindleistung ist: %8.2lf W",dBLeistung);
